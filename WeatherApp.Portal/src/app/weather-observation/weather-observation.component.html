@@ -1,0 +1,19 @@
+<h1 *ngIf="cityName">
+  <i class="wi wi-day-sleet-storm"></i> Weather Forecast for
+  <i>{{cityName}}</i>
+</h1>
+<mat-card>
+  <section class="section">
+    <mat-grid-list #gridList cols="5" rowHeight="100px">
+      <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows">
+        <div class="weather-card">
+          <div class="label">
+            <h4>
+              <i [ngClass]="[tile.icon]"></i>{{tile.label}}</h4>
+          </div>
+          <div class="content" [innerHtml]="tile.text"></div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </section>
+</mat-card>

@@ -1,0 +1,38 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <mat-error role="alert" *ngIf="showServerError">
+        Last opertion failed. Please Try again.
+        <br />
+      </mat-error>
+      <mat-error role="alert" *ngIf="showObservationError">
+        No observation found for selected city.
+        <br />
+      </mat-error>
+      <section class="section">
+        <mat-form-field>
+          <mat-select placeholder="Select country" [formControl]="countryControl" required (selectionChange)="onCountryChange()">
+            <mat-option *ngFor="let country of countries" [value]="country">
+              {{country.countryName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="countryControl.hasError('required')">Please select a country</mat-error>
+          <mat-hint>{{countryControl.value?.sound}}</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Select city" [formControl]="cityControl" required>
+            <mat-option *ngFor="let city of cities" [value]="city">
+              {{city.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="cityControl.hasError('required')">Please select a city</mat-error>
+          <mat-hint>{{cityControl.value?.sound}}</mat-hint>
+        </mat-form-field>
+        <button mat-raised-button class="mat-primary" (click)="onGoClick()">Go</button>
+        <mat-spinner color="primary" [diameter]="20" *ngIf="showSpinner"></mat-spinner>
+      </section>
+    </mat-card-content>
+  </mat-card>
+  <br />
+  <app-weather-observation #weatherObservation *ngIf="showObservation"></app-weather-observation>
+</div>
